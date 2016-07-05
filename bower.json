@@ -9,6 +9,7 @@
     "angular-mocks": "*",
     "jquery": "*",
     "bootstrap": "*",
+    "angular-devise": "*",
     "angular-route": "*",
     "angular-resource": "*",
     "angular-animate": "*"
