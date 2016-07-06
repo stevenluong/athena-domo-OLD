@@ -32,6 +32,7 @@ mainControllers.controller('mainCtrl', ['$scope','Auth','$window','$location',
             $scope.$on('devise:login', function(event, currentUser) {
                 $scope.user = currentUser;
                 console.log("DEVISE:LOGIN");
+                console.log($scope.user);
             });
             $scope.$on('devise:new-session', function(event, currentUser) {
                 $scope.user = currentUser;
