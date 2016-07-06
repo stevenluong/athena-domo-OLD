@@ -1,5 +1,5 @@
 {
-  "name": "NEW APP NAME",
+  "name": "athena",
   "description": "",
   "version": "0.0.1",
   "license": "",
@@ -8,6 +8,8 @@
     "angular": "*",
     "angular-mocks": "*",
     "jquery": "*",
+    "socket.io.client": "*",
+    "events": "*",
     "bootstrap": "*",
     "angular-devise": "*",
     "angular-route": "*",

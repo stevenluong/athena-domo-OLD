@@ -1,8 +1,6 @@
-http/bower_components/
-http/node_modules/
+bower_components/
+node_modules/
 ror/log/
-node/bower_components/
-node/node_modules/
 ror/public/assets/
 ror/vendor/bundle/
 ror/vendor/cache/

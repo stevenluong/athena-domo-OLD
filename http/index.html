@@ -8,7 +8,6 @@
             <link rel="stylesheet" href="css/app.css">
             <link rel="stylesheet" href="css/animations.css">
         -->
-        <script src="https://cdn.socket.io/socket.io-1.1.0.js"></script>
         <script src="../bower_components/jquery/dist/jquery.js"></script>
         <script src="../bower_components/angular/angular.js"></script>
         <script src="../bower_components/angular-animate/angular-animate.js"></script>
@@ -25,6 +24,14 @@
 //console.log(document.cookie);
 //console.log(cookieValue);
 
+        </script>
+        <script src="../bower_components/socket.io.client/dist/socket.io-1.3.5.js"></script>
+        <script>
+var socket = io('http://85.68.136.217:8080');
+socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+});
         </script>
     </head>
     <body>
@@ -43,7 +50,7 @@
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="#">Slapps Athena</a></li>
                     </ul>
-                                   </div><!--/.nav-collapse -->
+                </div><!--/.nav-collapse -->
             </div>
         </nav>
         <div class="view-container">
