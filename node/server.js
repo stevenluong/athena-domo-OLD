@@ -4,13 +4,63 @@ var io = require('socket.io')(server);
 
 server.listen(8080);
 
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/index.html');
-});
-
 io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
+    console.log("Client connected");
+    socket.on('disconnect', function (socket){
+        console.log("client disconnected");
+    });
+    socket.emit('on');
+    //socket.on('my other event', function (data) {
+    //    console.log(data);
+    //});
+    socket.on('stop', function (socket){
+        console.log("stop");
+        var exec = require('child_process').exec;
+        var cmd = 'kill $(ps -ag | grep epiphany | awk "{print $1}")';
+        exec(cmd, function(error, stdout, stderr) {
+            //console.log(stdout);
+            // command output is in stdout
+        });
+    });
+
+    socket.on('music', function (socket){
+        console.log("music");
+        say("OK Steven, playing some music");
+        var exec = require('child_process').exec;
+        var cmd = 'epiphany --display=:0 https://www.youtube.com/watch?v=BgfcToAjfdc&list=RDBgfcToAjfdc';
+        exec(cmd, function(error, stdout, stderr) {
+            //console.log(stdout);
+            // command output is in stdout
+        });
+    });
+    socket.on('radio', function (socket){
+        console.log("radio");
+        var exec = require('child_process').exec;
+        say("OK Steven, launching the radio");
+        var cmd = 'epiphany --display=:0 http://www.frequence-radio.com/ecouter-bfm-en-direct.html';
+        exec(cmd, function(error, stdout, stderr) {
+            //console.log(stdout);
+            // command output is in stdout
+        });
+    });
+    socket.on('calendar', function (socket){
+        console.log("calendar");
+        var exec = require('child_process').exec;
+        say("OK Steven, launching the calendar");
+        var cmd = 'epiphany --display=:0 https://calendar.google.com/';
+        exec(cmd, function(error, stdout, stderr) {
+            //console.log(stdout);
+            // command output is in stdout
+        });
+    });
 });
+var say = function(message){
+    var exec = require('child_process').exec;
+    var cmd = 'espeak -ven+f5 -k5 -s150 "'+message+'";';
+    exec(cmd, function(error, stdout, stderr) {
+        //console.log(stdout);
+        // command output is in stdout
+    });
+
+}
+

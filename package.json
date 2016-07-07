@@ -17,6 +17,6 @@
   },
   "scripts": {
     "postinstall": "bower install",
-    "start": "forever start server.js"
+    "start": "forever start node/server.js"
   }
 }
