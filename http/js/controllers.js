@@ -3,8 +3,14 @@
 /* Controllers */
 
 var mainControllers = angular.module('mainControllers', []);
-mainControllers.controller('mainCtrl', ['$scope','Auth','$window','$location',
-        function($scope, Auth,$window,$location) {
+mainControllers.controller('mainCtrl', ['$scope','Auth','$window','$location','Server',
+        function($scope, Auth,$window,$location,Server) {
+            $scope.launchBrowser = Server.launchBrowser;
+            Server.checkConnection(function(){
+                $scope.connection =true;
+                //console.log($scope.connection);
+                $scope.$apply();
+            });
             Auth.currentUser().then(function(user) {
                 $scope.user = user;
                 if($window.location.hash=="#/login")
