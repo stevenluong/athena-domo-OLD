@@ -18,15 +18,18 @@ mainApp.config(['$routeProvider','AuthProvider',
                     templateUrl: 'partials/main.html',
                     controller: 'mainCtrl'
                 }).
-                when('/login', {
-                    templateUrl: 'partials/login.html',
-                    controller: 'mainCtrl'
-                }).
-                when('/register', {
-                    templateUrl: 'partials/register.html',
-                    controller: 'mainCtrl'
-                }).
-
+            when('/login', {
+                templateUrl: 'partials/login.html',
+                controller: 'mainCtrl'
+            }).
+            when('/register', {
+                templateUrl: 'partials/register.html',
+                controller: 'mainCtrl'
+            }).
+            when('/cam', {
+                templateUrl: 'partials/cam.html',
+                controller: 'camCtrl'
+            }).
             otherwise({
                 redirectTo: '/'
             });
