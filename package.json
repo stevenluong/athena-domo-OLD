@@ -13,6 +13,7 @@
     "socket.io": "*",
     "socket.io-client": "*",
     "forever": "*",
+    "opencv": "*",
 	"querystring": "*"
   },
   "scripts": {

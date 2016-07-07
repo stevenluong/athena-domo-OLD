@@ -4,6 +4,7 @@ ror/log/
 ror/public/assets/
 ror/vendor/bundle/
 ror/vendor/cache/
+node/.DS_Store
 *.swp
 *.swo
 
