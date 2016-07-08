@@ -1,20 +1,36 @@
-<li ng-show="signedIn()">{{ user.email }}</li>
-<li ng-show="signedIn()"><a ng-click="logout()">Log Out</a></li>
-<li ng-hide="signedIn()"><a href="#/login">Login</a></li>
-<li ng-hide="signedIn()"><a href="#/register">Register</a></li>
-
-<h1>Status</h1>
-<label ng-show="connection" class="btn btn-success">Online</label>
-<label ng-hide="connection" class="btn btn-danger">Offline</label>
-<h1>Radio</h1>
-<label ng-click="launchBrowser('radio',true)"class="btn btn-default">Start</label>
-<label ng-click="launchBrowser('radio',false)"class="btn btn-default">Stop</label>
-<h1>Music</h1>
-<label ng-click="launchBrowser('music',true)"class="btn btn-default">Start</label>
-<label ng-click="launchBrowser('music',false)"class="btn btn-default">Stop</label>
-<h1>Calendar</h1>
-<label ng-click="launchBrowser('calendar',true)" class="btn btn-default">Start</label>
-<label ng-click="launchBrowser('calendar',false)"class="btn btn-default">Stop</label>
-<h1>Vision</h1>
-
-
+<!--
+    <li ng-show="signedIn()">{{ user.email }}</li>
+    <li ng-show="signedIn()"><a ng-click="logout()">Log Out</a></li>
+    <li ng-hide="signedIn()"><a href="#/login">Login</a></li>
+    <li ng-hide="signedIn()"><a href="#/register">Register</a></li>
+-->
+<div class="row">
+    <div class="col-md-3">
+        <h1>Status</h1>
+        <label ng-show="connection" class="btn btn-success">Online</label>
+        <label ng-hide="connection" class="btn btn-danger">Offline</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <h1>Radio</h1>
+        <label ng-click="launchBrowser('radio',true)"class="btn btn-default">Start</label>
+        <label ng-click="launchBrowser('radio',false)"class="btn btn-default">Stop</label>
+    </div>
+    <div class="col-md-3">
+        <h1>Music</h1>
+        <label ng-click="launchBrowser('music',true)"class="btn btn-default">Start</label>
+        <label ng-click="launchBrowser('music',false)"class="btn btn-default">Stop</label>
+    </div>
+    <div class="col-md-3">
+        <h1>Calendar</h1>
+        <label ng-click="launchBrowser('calendar',true)" class="btn btn-default">Start</label>
+        <label ng-click="launchBrowser('calendar',false)"class="btn btn-default">Stop</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <h1>Vision</h1>
+    </div>
+</div>
+</div>
