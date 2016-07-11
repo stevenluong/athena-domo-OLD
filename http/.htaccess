@@ -1,0 +1,4 @@
+AuthUserFile /home/s/web/fr/slapps/athena/http/.htpasswd
+AuthName "Please Enter Password"
+AuthType Basic
+Require valid-user
