@@ -23,6 +23,18 @@ mainServices.factory('Server',function($http){
             //socket.emit('my other event', { my: 'data' });
         });
     };
+    server.setAlarm= function(set){
+        var socket = io('http://85.68.136.217:8080');
+        if(set)
+            socket.emit('setAlarm');
+        else
+            socket.emit('unsetAlarm');
+    };
+    server.stopAlarm= function(set){
+        var socket = io('http://85.68.136.217:8080');
+        socket.emit('stopAlarm');
+    };
+
     server.launchBrowser= function(app,start){
         var socket = io('http://85.68.136.217:8080');
         if(!start)

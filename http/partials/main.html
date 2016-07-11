@@ -13,6 +13,15 @@
 </div>
 <div class="row">
     <div class="col-md-3">
+        <h1>Alarm</h1>
+        <label ng-click="setAlarm(true)"class="btn btn-default">Set</label>
+        <label ng-click="setAlarm(false)"class="btn btn-default">Unset</label>
+        <label ng-click="stopAlarm()"class="btn btn-default">Stop</label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
         <h1>Radio</h1>
         <label ng-click="launchBrowser('radio',true)"class="btn btn-default">Start</label>
         <label ng-click="launchBrowser('radio',false)"class="btn btn-default">Stop</label>
