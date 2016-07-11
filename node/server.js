@@ -5,6 +5,7 @@ var io = require('socket.io')(server);
 server.listen(8080);
 
 io.on('connection', function (socket) {
+    say('connection');
     console.log("Client connected");
     socket.on('disconnect', function (socket){
         console.log("client disconnected");
@@ -13,10 +14,44 @@ io.on('connection', function (socket) {
     //socket.on('my other event', function (data) {
     //    console.log(data);
     //});
+    socket.on('setAlarm', function (socket){
+        console.log("setAlarm");
+        var exec = require('child_process').exec;
+        say("OK Steven, setting up the alarm");
+
+        var cmd = '{ echo "* 8 * * * epiphany --display=:0 http://www.frequence-radio.com/ecouter-bfm-en-direct.html"; } | crontab -';
+        exec(cmd, function(error, stdout, stderr) {
+            //console.log(stdout);
+            // command output is in stdout
+        });
+    });
+    socket.on('unsetAlarm', function (socket){
+        console.log("unsetAlarm");
+        var exec = require('child_process').exec;
+        say("OK Steven, removing the alarm");
+        var cmd = 'crontab -r';
+        exec(cmd, function(error, stdout, stderr) {
+            //console.log(stdout);
+            // command output is in stdout
+        });
+    });
+    //TODO SPECIFIC STOP
+    //TODO FACTORIZE
     socket.on('stop', function (socket){
         console.log("stop");
         var exec = require('child_process').exec;
-        var cmd = 'kill $(ps -ag | grep epiphany | awk "{print $1}")';
+        say("OK Steven, stopping");
+        var cmd = "ps aux | grep epiphany | awk '{print $2;}' | xargs kill";
+        exec(cmd, function(error, stdout, stderr) {
+            //console.log(stdout);
+            // command output is in stdout
+        });
+    });
+    socket.on('stopAlarm', function (socket){
+        console.log("stopAlarm");
+        var exec = require('child_process').exec;
+        say("OK Steven, stopping");
+        var cmd = "ps aux | grep radio | awk '{print $2;}' | xargs kill";
         exec(cmd, function(error, stdout, stderr) {
             //console.log(stdout);
             // command output is in stdout
