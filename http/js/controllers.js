@@ -28,10 +28,13 @@ mainControllers.controller('camCtrl', ['$scope','Server',
 mainControllers.controller('mainCtrl', ['$scope','Auth','$window','$location','Server',
         function($scope, Auth,$window,$location,Server) {
             $scope.launchBrowser = Server.launchBrowser;
-            // Server.checkConnection(function(){
-            //     $scope.connection =true;
-            //    $scope.$apply();
-            //});
+            $scope.setAlarm= Server.setAlarm;
+            $scope.unsetAlarm= Server.unsetAlarm;
+            $scope.stopAlarm= Server.stopAlarm;
+            Server.checkConnection(function(){
+                $scope.connection =true;
+                $scope.$apply();
+            });
             //Auth.currentUser().then(function(user) {
             //    $scope.user = user;
             //    if($window.location.hash=="#/login")
