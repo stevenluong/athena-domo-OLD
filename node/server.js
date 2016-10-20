@@ -1,9 +1,25 @@
 var app = require('express')();
 var server = require('http').Server(app);
 var io = require('socket.io')(server);
+var five = require("johnny-five");
+var board = new five.Board();
+var led;
 
 server.listen(8080);
+board.on("ready", function() {
 
+    console.log("Ready!");
+    var temperature = new five.Thermometer({
+        controller: "TMP36",
+        pin : "A0",
+        freq : 1000
+    });
+    temperature.on("data", function(value) {
+        //TODO PUSH SOME VALUES TO ROR
+        console.log(value.celsius);
+    });
+    led =new five.Led(13);
+});
 io.on('connection', function (socket) {
     say('connection');
     console.log("Client connected");
@@ -14,6 +30,17 @@ io.on('connection', function (socket) {
     //socket.on('my other event', function (data) {
     //    console.log(data);
     //});
+     socket.on('blink', function (socket){
+        console.log("blink");
+        say("OK Steven, blinking");
+        led.blink(500);
+    });
+    socket.on('stopBlink', function (socket){
+        console.log("stopBlink");
+        say("OK Steven, stoping the blink");
+        led.stop().off();
+    });
+
     socket.on('setAlarm', function (socket){
         console.log("setAlarm");
         var exec = require('child_process').exec;
