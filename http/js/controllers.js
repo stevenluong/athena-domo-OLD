@@ -31,6 +31,8 @@ mainControllers.controller('mainCtrl', ['$scope','Auth','$window','$location','S
             $scope.setAlarm= Server.setAlarm;
             $scope.unsetAlarm= Server.unsetAlarm;
             $scope.stopAlarm= Server.stopAlarm;
+            $scope.blink= Server.blink;
+            $scope.stopBlink= Server.stopBlink;
             Server.checkConnection(function(){
                 $scope.connection =true;
                 $scope.$apply();
