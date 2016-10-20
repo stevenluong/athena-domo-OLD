@@ -19,7 +19,7 @@ io.on('connection', function (socket) {
         var exec = require('child_process').exec;
         say("OK Steven, setting up the alarm");
 
-        var cmd = '{ echo "* 8 * * * epiphany --display=:0 http://www.frequence-radio.com/ecouter-bfm-en-direct.html"; } | crontab -';
+        var cmd = '{ echo "0 8 * * * epiphany --display=:0 http://www.frequence-radio.com/ecouter-bfm-en-direct.html"; } | crontab -';
         exec(cmd, function(error, stdout, stderr) {
             //console.log(stdout);
             // command output is in stdout
