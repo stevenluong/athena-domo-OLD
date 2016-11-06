@@ -12,7 +12,7 @@ board.on("ready", function() {
     var temperature = new five.Thermometer({
         controller: "TMP36",
         pin : "A0",
-        freq : 1000
+        freq : 60000
     });
     temperature.on("data", function(value) {
         //TODO PUSH SOME VALUES TO ROR
