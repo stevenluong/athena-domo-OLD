@@ -11,8 +11,8 @@ mainServices.factory('Server',function($http){
     var socket = io(home+':'+port);
     server.checkConnection = function(callback){
         socket.on('on', function (data) {
-            //console.log(data);
-            callback();
+            console.log("s"+data.temperature);
+            callback(data.temperature);
             //socket.emit('my other event', { my: 'data' });
         });
     };

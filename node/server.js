@@ -4,7 +4,7 @@ var io = require('socket.io')(server);
 var five = require("johnny-five");
 var board = new five.Board();
 var led;
-
+var currentTemperature = 200;
 server.listen(8080);
 board.on("ready", function() {
 
@@ -12,11 +12,12 @@ board.on("ready", function() {
     var temperature = new five.Thermometer({
         controller: "TMP36",
         pin : "A0",
-        freq : 60000
+        freq : 1000
     });
     temperature.on("data", function(value) {
         //TODO PUSH SOME VALUES TO ROR
         console.log(value.celsius);
+        currentTemperature= this.C;
     });
     led =new five.Led(13);
 });
@@ -26,11 +27,11 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function (socket){
         console.log("client disconnected");
     });
-    socket.emit('on');
+    socket.emit('on',{ temperature: currentTemperature });
     //socket.on('my other event', function (data) {
     //    console.log(data);
     //});
-     socket.on('blink', function (socket){
+    socket.on('blink', function (socket){
         console.log("blink");
         say("OK Steven, blinking");
         led.blink(500);

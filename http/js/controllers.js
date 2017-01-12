@@ -25,16 +25,18 @@ mainControllers.controller('camCtrl', ['$scope','Server',
             });
 
         }]);
-mainControllers.controller('mainCtrl', ['$scope','Auth','$window','$location','Server',
-        function($scope, Auth,$window,$location,Server) {
+mainControllers.controller('mainCtrl', ['$scope','$window','$location','Server',
+        function($scope, $window,$location,Server) {
             $scope.launchBrowser = Server.launchBrowser;
             $scope.setAlarm= Server.setAlarm;
             $scope.unsetAlarm= Server.unsetAlarm;
             $scope.stopAlarm= Server.stopAlarm;
             $scope.blink= Server.blink;
             $scope.stopBlink= Server.stopBlink;
-            Server.checkConnection(function(){
+            Server.checkConnection(function(data){
                 $scope.connection =true;
+                console.log("c"+data);
+                $scope.temperature = data;
                 $scope.$apply();
             });
             //Auth.currentUser().then(function(user) {
@@ -42,7 +44,8 @@ mainControllers.controller('mainCtrl', ['$scope','Auth','$window','$location','S
             //    if($window.location.hash=="#/login")
             //        $location.path("/")
             //});
-            $scope.signedIn = Auth.isAuthenticated;
+            //$scope.signedIn = Auth.isAuthenticated;
+            /*
             $scope.logout = function(){
                 Auth.logout();
                 $scope.user = {};
@@ -70,4 +73,5 @@ mainControllers.controller('mainCtrl', ['$scope','Auth','$window','$location','S
                 $scope.user = currentUser;
                 console.log("DEVISE:NEW SESSION");
             });
+            */
         }]);

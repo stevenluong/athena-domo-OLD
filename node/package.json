@@ -1,0 +1,17 @@
+{
+  "name": "Athena",
+  "version": "0.0.2",
+  "license": "",
+  "repository": "https://github.com/stevenluong/",
+  "dependencies": {
+    "events": "*",
+    "connect": "*",
+    "express": "*",
+    "johnny-five": "*",
+    "serialport": "*",
+    "querystring": "*",
+    "request": "*",
+    "socket.io": "*",
+    "socket.io-client": "*"
+  }
+}

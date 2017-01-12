@@ -1,15 +1,15 @@
-<!--
-    <li ng-show="signedIn()">{{ user.email }}</li>
-    <li ng-show="signedIn()"><a ng-click="logout()">Log Out</a></li>
-    <li ng-hide="signedIn()"><a href="#/login">Login</a></li>
-    <li ng-hide="signedIn()"><a href="#/register">Register</a></li>
--->
 <div class="row">
     <div class="col-md-3">
         <h1>Status</h1>
         <label ng-show="connection" class="btn btn-success">Online</label>
         <label ng-hide="connection" class="btn btn-danger">Offline</label>
     </div>
+     <div class="col-md-3">
+        <h1>Temperature</h1>
+        {{temperature}} 
+        <label class="btn btn-default">Refresh</label>
+    </div>
+
 </div>
 <div class="row">
     <div class="col-md-3">

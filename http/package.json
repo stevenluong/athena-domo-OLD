@@ -1,24 +1,23 @@
 {
   "name": "Athena",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "",
   "repository": "https://github.com/stevenluong/",
   "dependencies": {
-    "bower": "*",
+    "bootstrap": "*",
+    "angular": "*",
+    "angular-mocks": "*",
+    "angular-route": "*",
+    "angular-resource": "*",
+    "angular-animate": "*",
+    "events": "*",
+    "jquery": "*",
     "connect": "*",
     "express": "*",
-    "feedparser": "*",
-    "forever": "*",
     "http-server": "*",
-    "johnny-five": "^0.10.3",
-    "opencv": "*",
     "querystring": "*",
     "request": "*",
     "socket.io": "*",
     "socket.io-client": "*"
-  },
-  "scripts": {
-    "postinstall": "bower install",
-    "start": "forever start node/server.js"
   }
 }
