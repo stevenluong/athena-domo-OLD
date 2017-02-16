@@ -10,17 +10,17 @@ services:
     #    restart: always
     #    networks:
     #        - nginx_default
-    node:
-        build: node/.
-        command: node server.js
-        #depends_on: 
+    #node:
+    #    build: node/.
+    #    command: node server.js
+    #    #depends_on: 
      #   depends_on:
      #       - ror
            # - redis
-        volumes:
-            - ./node/:/node
-            - /node/node_modules
-        restart: always
+           #    volumes:
+           #      - ./node/:/node
+           # - /node/node_modules
+           #restart: always
     #    networks:
     #        - nginx_default
     http:
@@ -28,11 +28,20 @@ services:
         command: http-server . -p 80
         #depends_on: 
         #    - ror
-        #ports:
-        #    - "8001:80"
+        ports:
+            - "8088:80"
         volumes:
             - ./http/:/http
             - /http/node_modules
+        restart: always
+    lb:
+        build: lb/.
+        command: node .
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./lb/:/lb
+            - /lb/node_modules
         restart: always
     #    networks:
     #        - nginx_default

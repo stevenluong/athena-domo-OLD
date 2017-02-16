@@ -1,23 +1,59 @@
 var app = require('express')();
-var server = require('http').Server(app);
+var http = require('http');
+var server = http.Server(app);
 var io = require('socket.io')(server);
 var five = require("johnny-five");
+var querystring = require('querystring');
 var board = new five.Board();
 var led;
-var currentTemperature = 200;
+var currentTemperature;
 server.listen(8080);
 board.on("ready", function() {
-
     console.log("Ready!");
     var temperature = new five.Thermometer({
         controller: "TMP36",
         pin : "A0",
-        freq : 1000
+        freq : 5000
     });
     temperature.on("data", function(value) {
-        //TODO PUSH SOME VALUES TO ROR
-        console.log(value.celsius);
-        currentTemperature= this.C;
+        //TODO PUSH SOME VALUES TO LB
+        var measure = {
+            value: this.C,
+            type: "temperature",
+            at: (new Date()).toString()
+        };
+        console.log(measure);
+        var postData = querystring.stringify(measure);
+        var options = {
+            hostname: "192.168.1.11",
+            port: 3000,
+            path: '/api/measures',
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Content-Length': Buffer.byteLength(postData)
+            }
+        };
+        console.log(postData);
+        var req = http.request(options, (res) => {
+            console.log(`STATUS: ${res.statusCode}`);
+            console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+            res.setEncoding('utf8');
+            res.on('data', (chunk) => {
+                console.log(`BODY: ${chunk}`);
+            });
+            res.on('end', () => {
+                console.log('No more data in response.');
+            });
+        });
+
+        req.on('error', (e) => {
+            console.log(`problem with request: ${e.message}`);
+        });
+
+        // write data to request body
+        req.write(postData);
+        req.end();
     });
     led =new five.Led(13);
 });

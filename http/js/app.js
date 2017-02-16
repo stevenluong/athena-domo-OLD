@@ -7,7 +7,8 @@ var mainApp = angular.module('mainApp', [
         //'mainAnimations',
         'mainControllers',
         'mainFilters',
-        'mainServices'
+        'mainServices',
+        'highcharts-ng'
 ]);
 
 mainApp.config(['$routeProvider',
@@ -21,6 +22,11 @@ mainApp.config(['$routeProvider',
                 templateUrl: 'partials/login.html',
                 controller: 'mainCtrl'
             }).
+            when('/tmp', {
+                templateUrl: 'partials/tmp.html',
+                controller: 'tmpCtrl'
+            }).
+
             when('/register', {
                 templateUrl: 'partials/register.html',
                 controller: 'mainCtrl'
