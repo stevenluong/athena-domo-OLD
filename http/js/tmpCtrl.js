@@ -25,7 +25,6 @@ mainControllers.controller('tmpCtrl', ['$scope','$resource',
 
             var Measure = $resource("http://192.168.1.11:3000/api/measures/:id");
             Measure.query({},function(measures){
-                console.log(measures);
                 measures.forEach(function(m){
                     $scope.chartConfig.series[0].data.push([m.id,m.value]);
                     $scope.chartConfig.series[1].data.push([m.id,m.value-2]);

@@ -4,18 +4,23 @@ var server = http.Server(app);
 var io = require('socket.io')(server);
 var five = require("johnny-five");
 var querystring = require('querystring');
-var board = new five.Board();
+var board = new five.Board({ repl:false});
 var led;
 var currentTemperature;
 server.listen(8080);
 board.on("ready", function() {
     console.log("Ready!");
+    led =new five.Led(13);
+    //led.on();
+    //led.off();
     var temperature = new five.Thermometer({
         controller: "TMP36",
         pin : "A0",
-        freq : 5000
+        freq : 30000
     });
     temperature.on("data", function(value) {
+        led.on();
+        led.off();
         //TODO PUSH SOME VALUES TO LB
         var measure = {
             value: this.C,
@@ -55,7 +60,6 @@ board.on("ready", function() {
         req.write(postData);
         req.end();
     });
-    led =new five.Led(13);
 });
 io.on('connection', function (socket) {
     say('connection');

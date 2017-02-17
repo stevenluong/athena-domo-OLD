@@ -10,17 +10,17 @@ services:
     #    restart: always
     #    networks:
     #        - nginx_default
-    #node:
-    #    build: node/.
-    #    command: node server.js
-    #    #depends_on: 
+    node:
+        privileged: true
+        build: node/.
+        command: node server.js
      #   depends_on:
      #       - ror
            # - redis
-           #    volumes:
-           #      - ./node/:/node
-           # - /node/node_modules
-           #restart: always
+        volumes:
+        - ./node/:/node
+        - /node/node_modules
+        restart: always
     #    networks:
     #        - nginx_default
     http:
