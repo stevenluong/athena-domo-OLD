@@ -1,6 +1,6 @@
 'use strict';
-//var home = "http://home.slapps.fr";
-var home = "http://82.237.72.55";
+var home = "http://home.slapps.fr";
+//var home = "http://82.237.72.55";
 var port = 8080;
 /* Services */
 
@@ -10,18 +10,17 @@ mainServices.factory('Server',function($http){
     var server = {};
     var socket = io(home+':'+port);
     server.checkConnection = function(callback){
+        console.log("checkConnection");
+        socket.emit('checkConnection');
         socket.on('on', function (data) {
-            console.log("s"+data.temperature);
             callback(data.temperature);
-            //socket.emit('my other event', { my: 'data' });
         });
     };
     server.getVideo = function(callback){
         socket.on('frame', function (data) {
             console.log("FRAME")
-            console.log(data);
+                console.log(data);
             callback(data);
-            //socket.emit('my other event', { my: 'data' });
         });
     };
     server.setAlarm= function(set){
@@ -33,10 +32,10 @@ mainServices.factory('Server',function($http){
     server.stopAlarm= function(set){
         socket.emit('stopAlarm');
     };
-server.blink= function(){
+    server.blink= function(){
         socket.emit('blink');
     };
-server.stopBlink= function(){
+    server.stopBlink= function(){
         socket.emit('stopBlink');
     };
     server.launchBrowser= function(app,start){

@@ -17,6 +17,11 @@ services:
      #   depends_on:
      #       - ror
            # - redis
+        ports:
+            - "8080:8080"
+    #    restart: always
+        devices:
+        - /dev/snd
         volumes:
         - ./node/:/node
         - /node/node_modules
