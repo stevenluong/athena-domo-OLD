@@ -14,8 +14,8 @@ services:
         privileged: true
         build: node/.
         command: node server.js
-     #   depends_on:
-     #       - ror
+        depends_on:
+            - lb
            # - redis
         ports:
             - "8080:8080"
@@ -26,8 +26,8 @@ services:
         - ./node/:/node
         - /node/node_modules
         restart: always
-    #    networks:
-    #        - nginx_default
+        networks:
+            - nginx_default
     http:
         build: http/.
         command: http-server . -p 80
@@ -48,6 +48,20 @@ services:
             - ./lb/:/lb
             - /lb/node_modules
         restart: always
+        networks:
+            - nginx_default
+    reactjs:
+        build: reactjs/.
+        command: http-server ./build/. -p 80
+        depends_on: 
+            - lb
+        volumes:
+            - ./reactjs/:/reactjs
+            - /reactjs/node_modules
+        restart: always
+        networks:
+            - nginx_default
+
     #    networks:
     #        - nginx_default
     #redis:
@@ -61,6 +75,6 @@ services:
     #    restart: always
     #    networks:
     #        - nginx_default
-#networks:
-#    nginx_default:
-#        external: true
+networks:
+    nginx_default:
+        external: true
