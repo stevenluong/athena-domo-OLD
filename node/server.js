@@ -5,7 +5,8 @@ var io = require('socket.io')(server);
 var five = require("johnny-five");
 var querystring = require('querystring');
 var board = new five.Board({ repl:false});
-var led;
+var led12;
+var led13;
 var currentTemperature = 0;
 var hostname = "lb";
 var offset=0;
@@ -13,8 +14,9 @@ server.listen(8080);
 board.on("ready", function() {
     console.log("Ready!");
     //LED
-    led =new five.Led(12);
+    led12 =new five.Led(12);
     var led8 = new five.Led(8);
+    led13 = new five.Led(13);
     //TEMPERATURE
     var temperature = new five.Thermometer({
         controller: "TMP36",
@@ -22,16 +24,15 @@ board.on("ready", function() {
         freq : 60000
     });
     temperature.on("data", function(value) {
-        led.on();
-        led.off();
+        led12.on();
+        led12.off();
         currentTemperature = this.C+offset;
         var measure = {
             value: currentTemperature,
-            type: "temperature",
             at: (new Date()).toString()
         };
         console.log(measure);
-        post(measure);
+        post("Temperatures",measure);
         
     });
     //MOTION
@@ -42,21 +43,20 @@ board.on("ready", function() {
     motion.on("motionstart", function() {
         console.log("motionstart");
         led8.on() ;
+        var measure = {
+            at: (new Date()).toString()
+        };
+        post("Mouvements",measure);
+
     });
     motion.on("motionend", function() {
         console.log("motionend");
         led8.off();
     });
     motion.on("data", function(data) {
-        //            console.log(data);
+        //console.log(data);
         var message = "Steven, mouvement detected";
         athena_say(message);
-        var measure = {
-            value: 1,
-            type: "mouvement",
-            at: (new Date()).toString()
-        };
-        post(measure);
     });
 
 });
@@ -78,16 +78,25 @@ io.on('connection', function (socket) {
     //    console.log(data);
     //});
     socket.on('blink', function (){
-        led.blink(500);
+        led12.blink(500);
         var message = "OK Steven, blinking";
         athena_say(message);
     });
     socket.on('stopBlink', function (){
-        led.stop().off();
+        led12.stop().off();
         var message = "OK Steven, stoping the blink";
         athena_say(message);
     });
-
+    socket.on('white', function (){
+        led13.on();
+        var message = "OK Steven, white";
+        athena_say(message);
+    });
+    socket.on('stopWhite', function (){
+        led13.off();
+        var message = "OK Steven, stopping the white";
+        athena_say(message);
+    });
     /*
        socket.on('setAlarm', function (){
        var message = "OK Steven, setting up the alarm";
@@ -153,12 +162,12 @@ var athena_say = function(message){
     //});
 
 }
-var post = function(m){
+var post = function(s,m){
         var postData = querystring.stringify(m);
         var options = {
             hostname: hostname,
             port: 3000,
-            path: '/api/measures',
+            path: '/api/'+s,
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

@@ -1,6 +1,6 @@
 {
-  "name": "measure",
-  "plural": "measures",
+  "name": "Temperature",
+  "plural": "Temperatures",
   "base": "PersistedModel",
   "idInjection": true,
   "options": {
@@ -13,10 +13,6 @@
     },
     "at": {
       "type": "date",
-      "required": true
-    },
-    "type": {
-      "type": "string",
       "required": true
     }
   },

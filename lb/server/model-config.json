@@ -32,7 +32,11 @@
     "dataSource": "db",
     "public": false
   },
-  "measure": {
+  "Temperature": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Mouvement": {
     "dataSource": "db",
     "public": true
   }
